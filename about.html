@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .about-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .about-container:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0077cc;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #0077cc;
+      font-weight: bold;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-in-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="about-container fade-in" id="about">
+    <h1>About Us</h1>
+    <p>
+      This platform was developed by a passionate group of <span class="highlight">young Somali innovators</span> with a mission to empower and uplift the skills and knowledge of the Somali community.
+    </p>
+    <p>
+      Our goal is to provide <span class="highlight">high-quality online courses</span> designed to be easy to follow, practical, and impactful for learners of all backgrounds.
+    </p>
+    <p>
+      We believe in the power of education to transform lives. That’s why we are dedicated to helping you gain the skills needed to <span class="highlight">compete in today’s fast-changing world</span>.
+    </p>
+    <p>
+      Together, we aim to build a stronger, more skilled Somali generation ready for global opportunities.
+    </p>
+  </div>
+
+  <script>
+    // Fade-in animation on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('about').classList.add('visible');
+    });
+  </script>
+</body>
+</html>

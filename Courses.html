@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Available Courses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f2f2f2;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #1a73e8;
+    }
+
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .course {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .course:hover {
+      transform: translateY(-5px);
+      background: #e8f0fe;
+    }
+
+    .course i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #1a73e8;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-top: 0.5rem;
+      color: #444;
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: #1a73e8;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .modal-content button {
+      background: #1a73e8;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.2rem;
+      color: #888;
+      cursor: pointer;
+    }
+
+    @media(max-width: 500px) {
+      .courses {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/a2d1a8f8aa.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <h1>Available Courses</h1>
+
+  <div class="courses">
+    <div class="course" onclick="openForm('Graphic Design')">
+      <i class="fas fa-pencil-ruler"></i>
+      <h3>Graphic Design</h3>
+      <div class="price">$8.99</div>
+    </div>
+
+    <div class="course" onclick="openForm('Video Editing')">
+      <i class="fas fa-video"></i>
+      <h3>Video Editing</h3>
+      <div class="price">Coming Soon</div>
+    </div>
+
+    <div class="course" onclick="openForm('Cryptocurrency')">
+      <i class="fas fa-coins"></i>
+      <h3>Cryptocurrency</h3>
+      <div class="price">Coming Soon</div>
+    </div>
+
+    <div class="course" onclick="openForm('E-commerce')">
+      <i class="fas fa-shopping-cart"></i>
+      <h3>E-commerce</h3>
+      <div class="price">Coming Soon</div>
+    </div>
+
+    <div class="course" onclick="openForm('Forex')">
+      <i class="fas fa-chart-line"></i>
+      <h3>Forex</h3>
+      <div class="price">$20</div>
+    </div>
+
+    <div class="course" onclick="openForm('Photo Editing')">
+      <i class="fas fa-camera-retro"></i>
+      <h3>Photo Editing</h3>
+      <div class="price">Coming Soon</div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="formModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeForm()">&times;</span>
+      <h2 id="formTitle">Enroll Now</h2>
+      <form action="https://submit-form.com/iHtZY9t7Q" method="POST">
+        <input type="hidden" name="course" id="selectedCourse">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" required />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openForm(courseName) {
+      document.getElementById("formModal").style.display = "flex";
+      document.getElementById("formTitle").innerText = "Enroll for " + courseName;
+      document.getElementById("selectedCourse").value = courseName;
+    }
+
+    function closeForm() {
+      document.getElementById("formModal").style.display = "none";
+    }
+
+    // Close modal if clicked outside
+    window.onclick = function(e) {
+      const modal = document.getElementById("formModal");
+      if (e.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

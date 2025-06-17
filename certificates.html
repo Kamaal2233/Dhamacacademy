@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Certificate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            animation: popup 0.4s ease-out;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes popup {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #e74c3c;
+            transform: rotate(90deg);
+        }
+
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .certificate-header h2 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .certificate-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .certificate-details {
+            margin: 25px 0;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .valid-badge {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logo.png" alt="Academy Logo">
+        </div>
+        <h1>Verify Certificate</h1>
+        <div class="input-group">
+            <label for="certificateId">Certificate ID</label>
+            <input type="text" id="certificateId" placeholder="Enter certificate ID">
+        </div>
+        <button id="verifyBtn">Verify Certificate</button>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <div class="certificate-header">
+                <h2>CERTIFICATE OF COMPLETION</h2>
+                <p>This certificate is proudly presented to</p>
+            </div>
+            <div class="certificate-details">
+                <div class="detail-item">
+                    <span class="detail-label">Name:</span>
+                    <span class="detail-value" id="popupName">John Doe</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Course:</span>
+                    <span class="detail-value" id="popupCourse">Advanced Web Development</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Completion Date:</span>
+                    <span class="detail-value" id="popupDate">June 15, 2023</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Certificate ID:</span>
+                    <span class="detail-value" id="popupId">ABC123456</span>
+                </div>
+            </div>
+            <div class="valid-badge">✓ Valid Certificate</div>
+        </div>
+    </div>
+
+    <script>
+        // Sample certificate data (in a real app, this would come from a database)
+        const certificateDatabase = {
+            "ABC123": {
+                name: "Ahmed Mohamed",
+                course: "Full Stack Web Development",
+                date: "May 10, 2023",
+                duration: "3 months"
+            },
+            "XYZ789": {
+                name: "Aisha Hassan",
+                course: "Data Science Fundamentals",
+                date: "April 5, 2023",
+                duration: "2 months"
+            },
+            "DEF456": {
+                name: "Omar Abdullahi",
+                course: "Mobile App Development",
+                date: "June 1, 2023",
+                duration: "4 months"
+            }
+        };
+
+        // DOM elements
+        const verifyBtn = document.getElementById('verifyBtn');
+        const certificateIdInput = document.getElementById('certificateId');
+        const popup = document.getElementById('popup');
+        const closeBtn = document.getElementById('closeBtn');
+        const popupName = document.getElementById('popupName');
+        const popupCourse = document.getElementById('popupCourse');
+        const popupDate = document.getElementById('popupDate');
+        const popupId = document.getElementById('popupId');
+
+        // Verify button click handler
+        verifyBtn.addEventListener('click', () => {
+            const certificateId = certificateIdInput.value.trim();
+            
+            if (!certificateId) {
+                alert('Please enter a certificate ID');
+                return;
+            }
+
+            // Check if certificate exists
+            if (certificateDatabase[certificateId]) {
+                const certificate = certificateDatabase[certificateId];
+                
+                // Update popup with certificate details
+                popupName.textContent = certificate.name;
+                popupCourse.textContent = certificate.course;
+                popupDate.textContent = certificate.date;
+                popupId.textContent = certificateId;
+                
+                // Show popup
+                popup.style.display = 'flex';
+            } else {
+                alert('Certificate not found. Please check the ID and try again.');
+            }
+        });
+
+        // Close popup
+        closeBtn.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        // Close popup when clicking outside
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+
+        // Allow closing with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popup.style.display === 'flex') {
+                popup.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
